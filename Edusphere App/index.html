@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EduSphere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<div class="app">
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">Es</div><div class="brand-name">Edu<span>Sphere</span></div></div>
+
+    <div class="nav-group-label">Overview</div>
+    <button class="nav-item active" data-page="dashboard" data-title="Dashboard|Everything, at a glance">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg> Dashboard
+    </button>
+
+    <div class="nav-group-label">Learn & Study</div>
+    <button class="nav-item" data-page="learning" data-title="Learning Center|Courses, quizzes, flashcards & planning">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Learning Center
+    </button>
+    <button class="nav-item" data-page="academic" data-title="Academic Management|GPA, attendance, timetable & exams">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg> Academic
+    </button>
+
+    <div class="nav-group-label">Grow</div>
+    <button class="nav-item" data-page="career" data-title="Career Development Hub|Roadmaps, resume & internships">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Career Hub
+    </button>
+    <button class="nav-item" data-page="community" data-title="Community Hub|Groups, mentors & collaboration">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Community
+    </button>
+    <button class="nav-item" data-page="impact" data-title="Community Impact|Report issues & give back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21l8.84-8.61a5.5 5.5 0 0 0 0-7.78z"/></svg> Community Impact
+    </button>
+
+    <div class="nav-group-label">Track</div>
+    <button class="nav-item" data-page="achievements" data-title="Achievement Center|XP, badges & leaderboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/></svg> Achievements
+    </button>
+    <button class="nav-item" data-page="analytics" data-title="Analytics|Trends across everything you do">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/></svg> Analytics
+    </button>
+
+    <div class="nav-group-label">Support</div>
+    <button class="nav-item" data-page="assistant" data-title="AI Assistant|Your personal study copilot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M8 16h.01M16 16h.01"/></svg> AI Assistant
+    </button>
+    <button class="nav-item" data-page="emergency" data-title="Emergency & Safety|Help, always within reach">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Emergency & Safety
+    </button>
+
+    <div class="nav-group-label">Account</div>
+    <button class="nav-item" data-page="profile" data-title="Smart Profile|Your academic identity, in one place">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg> Profile
+    </button>
+    <button class="nav-item" data-page="settings" data-title="Settings|Theme, notifications & privacy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings
+    </button>
+    <button class="nav-item" data-page="auth" data-title="Account Access|Sign in to sync your progress">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Log out
+    </button>
+
+    <div class="sidebar-foot">
+      <div class="avatar-chip"><div class="avatar" id="sidebarAvatar">RA</div><div><strong id="sidebarUserName">Student</strong><small id="sidebarUserMeta">B.Tech · Sem 5</small></div></div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <div class="main">
+    <div class="topbar">
+      <div><div class="topbar-title" id="pageTitle">Dashboard</div><div class="topbar-sub" id="pageSub">Everything, at a glance</div></div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="themeToggle" title="Toggle dark mode">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-btn" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ============================================================ DASHBOARD ============================================================ -->
+      <section class="page active" id="page-dashboard">
+
+        <div class="hero">
+          <div class="welcome-card fade-in">
+            <div class="welcome-eyebrow">Saturday, 18 July</div>
+            <div class="welcome-title">Good morning, <span id="welcomeName">Student</span>. Two deadlines and one quiz are waiting for you.</div>
+            <div class="welcome-sub">You're 12% ahead of last week's study pace — keep the streak alive.</div>
+            <div class="welcome-stats">
+              <div class="welcome-stat"><b id="wsHours">0.0</b><span>Study hours today</span></div>
+              <div class="welcome-stat"><b id="wsGoal">0%</b><span>Daily goal reached</span></div>
+              <div class="welcome-stat"><b>#3</b><span>Class rank</span></div>
+            </div>
+          </div>
+          <div class="growth-card fade-in" style="animation-delay:.05s">
+            <div class="growth-label">Growth Score</div>
+            <div class="growth-ring-wrap">
+              <svg viewBox="0 0 120 120">
+                <circle class="growth-ring-bg" cx="60" cy="60" r="52"></circle>
+                <circle class="growth-ring-fg" id="growthRing" cx="60" cy="60" r="52" stroke="url(#gGrad)" stroke-dasharray="326.7" stroke-dashoffset="326.7"></circle>
+                <defs><linearGradient id="gGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--primary)"/><stop offset="55%" stop-color="var(--secondary)"/><stop offset="100%" stop-color="var(--accent)"/></linearGradient></defs>
+              </svg>
+              <div class="growth-center"><div class="growth-num" id="growthNum">0<small>/100</small></div></div>
+            </div>
+            <div class="growth-tags"><span class="growth-tag">Attendance 92</span><span class="growth-tag">GPA 8.7</span><span class="growth-tag">Skills 14</span><span class="growth-tag">Quizzes 88%</span></div>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Study plans</h2><span>Saved for this account</span></div>
+        <div class="card c6" id="planManager">
+          <div class="form-field">
+            <label>New plan</label>
+            <textarea class="form-input" id="planInput" rows="3" placeholder="Add a study plan, deadline, or goal..."></textarea>
+          </div>
+          <div class="form-row" style="margin-bottom:12px">
+            <button class="btn btn-primary" id="savePlanBtn">Save plan</button>
+            <button class="btn btn-outline" id="clearPlansBtn">Clear saved plans</button>
+          </div>
+          <div class="list" id="savedPlansList"></div>
+        </div>
+
+        <div class="section-heading"><h2>Achievements</h2><span>4 of 6 unlocked</span></div>
+        <div class="badge-strip fade-in">
+          <div class="badge" data-badge="1"><div class="emoji">📖</div><span>Study Master</span></div>
+          <div class="badge" data-badge="2"><div class="emoji">🔥</div><span>30-Day Streak</span></div>
+          <div class="badge" data-badge="3"><div class="emoji">💻</div><span>Coding Expert</span></div>
+          <div class="badge locked" data-badge="4"><div class="emoji">❤️</div><span>Volunteer Hero</span></div>
+          <div class="badge" data-badge="5"><div class="emoji">🎯</div><span>Goal Crusher</span></div>
+          <div class="badge locked" data-badge="6"><div class="emoji">🏆</div><span>Top Performer</span></div>
+        </div>
+
+        <div class="section-heading"><h2>Today at a glance</h2><span>Auto-refreshed 2 min ago</span></div>
+        <div class="grid" id="mainGrid">
+          <div class="card c3"><div class="card-head"><div class="card-title"><span class="ico tint-indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>Today's Schedule</div><button class="card-more" data-nav="academic">View all</button></div>
+            <div class="list">
+              <div class="list-row"><span class="time-chip">09:00</span><div><strong>Data Structures</strong><span class="meta">Room 204 · Prof. Mehta</span></div></div>
+              <div class="list-row"><span class="time-chip">11:00</span><div><strong>Operating Systems Lab</strong><span class="meta">Lab 3</span></div></div>
+              <div class="list-row"><span class="time-chip">14:30</span><div><strong>Study Group — DBMS</strong><span class="meta">Library, 2nd floor</span></div></div>
+              <div class="list-row"><span class="time-chip">18:00</span><div><strong>Mentor Call</strong><span class="meta">with Aditya S.</span></div></div>
+            </div>
+          </div>
+          <div class="card c3"><div class="card-head"><div class="card-title"><span class="ico tint-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5"/><path d="M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg></span>Upcoming Deadlines</div><button class="card-more" data-nav="academic">Manage</button></div>
+            <div class="list">
+              <div class="list-row"><div><strong>OS Assignment 4</strong><span class="meta">Due tomorrow, 11:59 PM</span></div><span class="pill high">High</span></div>
+              <div class="list-row"><div><strong>DBMS Lab Report</strong><span class="meta">Due in 3 days</span></div><span class="pill med">Medium</span></div>
+              <div class="list-row"><div><strong>Resume Review</strong><span class="meta">Due in 5 days</span></div><span class="pill low">Low</span></div>
+            </div>
+          </div>
+
+          <div class="card c2"><div class="card-head"><div class="card-title"><span class="ico tint-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Assignments</div></div>
+            <div class="stat-card"><div class="stat-big" data-count="7" data-suffix="/9">0/9</div><span style="font-size:12px;color:var(--text2)">Submitted this month</span><div class="bar-track" style="margin-top:6px"><div class="bar-fill" data-fill="78" style="background:var(--secondary)"></div></div></div>
+          </div>
+          <div class="card c2"><div class="card-head"><div class="card-title"><span class="ico tint-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>Attendance</div></div>
+            <div class="mini-ring-wrap"><svg viewBox="0 0 84 84"><circle class="mini-ring-bg" cx="42" cy="42" r="35"></circle><circle class="mini-ring-fg" data-ring="92" stroke="var(--success)" cx="42" cy="42" r="35" stroke-dasharray="219.9" stroke-dashoffset="219.9"></circle></svg><div class="mini-ring-center"><span data-count="92" data-suffix="%">0%</span></div></div>
+            <div style="text-align:center;font-size:11.5px;color:var(--text2);margin-top:10px">Safe margin: 8%</div>
+          </div>
+          <div class="card c2"><div class="card-head"><div class="card-title"><span class="ico tint-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>Current GPA</div></div>
+            <div class="stat-card"><div class="stat-big display" data-count="8.7" data-decimals="1"><span>0.0</span></div><div class="trend up">▲ 0.3 from last sem</div></div>
+          </div>
+
+          <div class="card c2"><div class="card-head"><div class="card-title"><span class="ico tint-indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/><path d="M9 2h6"/></svg></span>Study Hours</div></div>
+            <div class="stat-card"><div class="stat-big" data-count="3.4" data-decimals="1"><span>0.0</span><small>hrs</small></div><span style="font-size:12px;color:var(--text2)">Goal: 4.5 hrs/day</span><div class="bar-track"><div class="bar-fill" data-fill="76" style="background:var(--primary)"></div></div></div>
+          </div>
+          <div class="card c2"><div class="card-head"><div class="card-title"><span class="ico tint-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span>Daily Goal</div></div>
+            <div class="stat-card"><span style="font-size:13px;font-weight:600">Study 4.5 hours</span><div class="bar-track"><div class="bar-fill" data-fill="76" style="background:var(--accent)"></div></div><span style="font-size:11.5px;color:var(--text2)">3.4 / 4.5 hrs · 76% there</span></div>
+          </div>
+          <div class="card c2"><div class="card-head"><div class="card-title"><span class="ico tint-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></span>Skills Learned</div><button class="card-more" data-nav="career">14 total</button></div>
+            <div class="chip-row skill-select"><span class="chip done">HTML ✓</span><span class="chip done">CSS ✓</span><span class="chip done">JavaScript ✓</span><span class="chip done">Python ✓</span><span class="chip">React</span></div>
+          </div>
+
+          <div class="card c3"><div class="card-head"><div class="card-title"><span class="ico tint-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Goals Completed</div></div>
+            <div class="streak-row" style="justify-content:center">
+              <div class="mini-ring-wrap" id="goalRingBtn" style="cursor:pointer" title="Tap to celebrate"><svg viewBox="0 0 84 84"><circle class="mini-ring-bg" cx="42" cy="42" r="35"></circle><circle class="mini-ring-fg" data-ring="80" stroke="var(--success)" cx="42" cy="42" r="35" stroke-dasharray="219.9" stroke-dashoffset="219.9"></circle></svg><div class="mini-ring-center"><span data-count="4" data-suffix="/5">0/5</span></div></div>
+              <div><strong style="font-size:13.5px">4 of 5 goals hit</strong><br><span style="font-size:11.5px;color:var(--text2)">Tap ring to celebrate 🎉</span></div>
+            </div>
+          </div>
+          <div class="card c3"><div class="card-head"><div class="card-title"><span class="ico tint-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4-3 5-3 9a4 4 0 0 0 8 0c0-1.5-.6-2.4-1.2-3.3.9.4 2.2 1.7 2.2 4.3a6 6 0 1 1-12 0c0-4 3-6 6-10z"/></svg></span>Learning Streak</div></div>
+            <div class="streak-row"><div class="streak-flame">🔥</div><div><div class="stat-big" style="font-size:28px" data-count="18" data-suffix=" days">0 days</div><span style="font-size:11.5px;color:var(--text2)">Best: 30 days</span></div></div>
+          </div>
+
+          <div class="card c3"><div class="card-head"><div class="card-title"><span class="ico tint-indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>Upcoming Events</div><button class="card-more" data-nav="academic">Calendar</button></div>
+            <div class="list">
+              <div class="list-row"><span class="time-chip">Mon</span><div><strong>Hackathon Kickoff — CodeSprint</strong><span class="meta">Main Auditorium · 10 AM</span></div></div>
+              <div class="list-row"><span class="time-chip">Wed</span><div><strong>Blood Donation Camp</strong><span class="meta">Community Hub · Volunteers needed</span></div></div>
+              <div class="list-row"><span class="time-chip">Fri</span><div><strong>Alumni Mentor Meetup</strong><span class="meta">Career Hub · Register by Thu</span></div></div>
+            </div>
+          </div>
+          <div class="card c3"><div class="card-head"><div class="card-title"><span class="ico tint-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>Recommended Courses</div><button class="card-more" data-nav="learning">Learning Center</button></div>
+            <div class="mini-row"><div class="mini-card"><span class="tag">DSA</span><h4>Advanced Graph Algorithms</h4><p>Matches your DSA progress · 6 hrs</p></div><div class="mini-card"><span class="tag">Web</span><h4>React for Real Projects</h4><p>Next step after JavaScript · 8 hrs</p></div></div>
+          </div>
+
+          <div class="card c3"><div class="card-head"><div class="card-title"><span class="ico tint-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>Internship Recommendations</div><button class="card-more" data-nav="career">Career Hub</button></div>
+            <div class="mini-row"><div class="mini-card"><span class="tag">Remote</span><h4>Frontend Intern — Nimbus Labs</h4><p>92% skill match · Apply by 24 Jul</p></div><div class="mini-card"><span class="tag">On-site</span><h4>Data Analyst Intern — Civica</h4><p>85% skill match · Apply by 29 Jul</p></div></div>
+          </div>
+          <div class="card c3"><div class="card-head"><div class="card-title"><span class="ico tint-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Community Updates</div><button class="card-more" data-nav="community">Community Hub</button></div>
+            <div class="list">
+              <div class="feed-item"><span class="feed-dot" style="background:var(--success)"></span><div><strong>Ankit</strong> shared notes for Thermodynamics Unit 3.<span class="meta"> 12 min ago</span></div></div>
+              <div class="feed-item"><span class="feed-dot" style="background:var(--secondary)"></span><div>Your <strong>Study Group — DBMS</strong> has 2 new members.<span class="meta"> 40 min ago</span></div></div>
+              <div class="feed-item"><span class="feed-dot" style="background:var(--accent)"></span><div><strong>NGO Sahyog</strong> posted a tree plantation drive this weekend.<span class="meta"> 2 hrs ago</span></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ LEARNING CENTER ============================================================ -->
+      <section class="page" id="page-learning">
+        <div class="section-heading"><h2>Course Library</h2><span>3 in progress</span></div>
+        <div class="grid">
+          <div class="card c2"><div class="mini-card" style="background:transparent;border:none;padding:0;gap:12px"><span class="tag">Web Dev</span><h4 style="font-size:15px">React for Real Projects</h4><div class="bar-track"><div class="bar-fill" data-fill="62" style="background:var(--primary)"></div></div><p>62% complete · 8 hrs total</p></div></div>
+          <div class="card c2"><div class="mini-card" style="background:transparent;border:none;padding:0;gap:12px"><span class="tag">DSA</span><h4 style="font-size:15px">Advanced Graph Algorithms</h4><div class="bar-track"><div class="bar-fill" data-fill="30" style="background:var(--secondary)"></div></div><p>30% complete · 6 hrs total</p></div></div>
+          <div class="card c2"><div class="mini-card" style="background:transparent;border:none;padding:0;gap:12px"><span class="tag">AI/ML</span><h4 style="font-size:15px">Intro to Machine Learning</h4><div class="bar-track"><div class="bar-fill" data-fill="8" style="background:var(--accent)"></div></div><p>8% complete · 10 hrs total</p></div></div>
+        </div>
+
+        <div class="section-heading"><h2>AI Quiz Generator</h2><span>Powered by your notes</span></div>
+        <div class="grid">
+          <div class="card c3">
+            <p class="desc">Pick a source and a topic — EduSphere pulls key concepts and writes questions on the spot.</p>
+            <div class="form-row">
+              <div class="form-field">
+                <label>Source</label>
+                <select class="form-select creative-select" id="quizSourceSelect">
+                  <option value="dbms">My notes — DBMS Unit 4</option>
+                  <option value="thermo">Uploaded PDF — Thermodynamics</option>
+                  <option value="custom">Custom topic</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Question type</label>
+                <select class="form-select creative-select" id="quizTypeSelect">
+                  <option value="mcq">MCQs</option>
+                  <option value="truefalse">True / False</option>
+                  <option value="fillblank">Fill in the blanks</option>
+                  <option value="short">Short questions</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="genQuizBtn">Generate quiz</button>
+          </div>
+          <div class="card c3" id="quizPreview">
+            <div class="card-head"><div class="card-title"><span class="ico tint-indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg></span>Sample question</div></div>
+            <div id="quizQuestionBody">
+              <p style="font-size:13.5px;font-weight:600;margin-bottom:12px">Which normal form removes transitive dependency?</p>
+              <div class="chip-row quiz-options">
+                <span class="chip" data-correct="false">1NF</span><span class="chip" data-correct="false">2NF</span><span class="chip active" data-correct="true">3NF</span><span class="chip" data-correct="false">BCNF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Flashcard Generator</h2><span>Tap a card to flip</span></div>
+        <div class="grid">
+          <div class="card c2" style="text-align:center;cursor:pointer" onclick="this.querySelector('.fc-inner').classList.toggle('flip')">
+            <div class="fc-inner" style="min-height:90px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;transition:opacity .2s"><span class="fc-front">What is Normalization?</span><span class="fc-back" style="display:none">Organizing data to reduce redundancy.</span></div>
+            <span style="font-size:11px;color:var(--text2)">DBMS · Difficulty: Medium</span>
+          </div>
+          <div class="card c2" style="text-align:center;cursor:pointer" onclick="this.querySelector('.fc-inner').classList.toggle('flip')">
+            <div class="fc-inner" style="min-height:90px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px"><span class="fc-front">What is a Deadlock?</span><span class="fc-back" style="display:none">A state where processes wait on each other forever.</span></div>
+            <span style="font-size:11px;color:var(--text2)">OS · Difficulty: Hard</span>
+          </div>
+          <div class="card c2" style="text-align:center;cursor:pointer" onclick="this.querySelector('.fc-inner').classList.toggle('flip')">
+            <div class="fc-inner" style="min-height:90px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px"><span class="fc-front">What is Big-O of binary search?</span><span class="fc-back" style="display:none">O(log n)</span></div>
+            <span style="font-size:11px;color:var(--text2)">DSA · Difficulty: Easy</span>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Learning Roadmap</h2><span>Frontend Development track</span></div>
+        <div class="grid">
+          <div class="card c6">
+            <div class="roadmap">
+              <div class="roadmap-step done"><div class="roadmap-line"></div><div class="roadmap-dot">✓</div><div class="roadmap-body"><strong>HTML & CSS fundamentals</strong><span>Completed · 4 weeks</span></div></div>
+              <div class="roadmap-step done"><div class="roadmap-line"></div><div class="roadmap-dot">✓</div><div class="roadmap-body"><strong>JavaScript essentials</strong><span>Completed · 5 weeks</span></div></div>
+              <div class="roadmap-step"><div class="roadmap-line"></div><div class="roadmap-dot">3</div><div class="roadmap-body"><strong>React & component design</strong><span>In progress · 62%</span></div></div>
+              <div class="roadmap-step"><div class="roadmap-line"></div><div class="roadmap-dot">4</div><div class="roadmap-body"><strong>Node.js & APIs</strong><span>Up next</span></div></div>
+              <div class="roadmap-step"><div class="roadmap-dot">5</div><div class="roadmap-body"><strong>Portfolio projects & internships</strong><span>Locked</span></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ ACADEMIC MANAGEMENT ============================================================ -->
+      <section class="page" id="page-academic">
+        <div class="section-heading"><h2>GPA Calculator</h2><span>Add subjects to estimate your semester GPA</span></div>
+        <div class="grid">
+          <div class="card c3">
+            <div id="gpaRows">
+              <div class="form-row" style="margin-bottom:10px"><input class="form-input gpa-subject" placeholder="Subject" value="Operating Systems"><input class="form-input gpa-credits" type="number" placeholder="Credits" value="4"><input class="form-input gpa-grade" type="number" placeholder="Grade (0-10)" value="9"></div>
+              <div class="form-row" style="margin-bottom:10px"><input class="form-input gpa-subject" placeholder="Subject" value="DBMS"><input class="form-input gpa-credits" type="number" placeholder="Credits" value="3"><input class="form-input gpa-grade" type="number" placeholder="Grade (0-10)" value="8"></div>
+            </div>
+            <button class="btn btn-outline btn-sm" id="addGpaRow">+ Add subject</button>
+            <div style="margin-top:16px"><button class="btn btn-primary" id="calcGpaBtn">Calculate GPA</button></div>
+          </div>
+          <div class="card c3" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+            <span class="growth-label">Estimated GPA</span>
+            <div class="stat-big display" id="gpaResult" style="font-size:44px">8.43</div>
+            <span style="font-size:11.5px;color:var(--text2)">Overall CGPA: 8.51</span>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Attendance Tracker</h2><span>Update numbers whenever your attendance changes</span></div>
+        <div class="grid">
+          <div class="card c4">
+            <table class="data-table">
+              <thead><tr><th>Subject</th><th>Attended</th><th>Missed</th><th>%</th><th>Action</th></tr></thead>
+              <tbody id="attendanceBody">
+                <tr data-subject="Data Structures">
+                  <td>Data Structures</td>
+                  <td><input class="form-input attendance-input" type="number" min="0" value="38"></td>
+                  <td><input class="form-input attendance-input" type="number" min="0" value="2"></td>
+                  <td class="attendance-percent">95%</td>
+                  <td><button class="btn btn-outline btn-sm update-attendance-btn">Update</button></td>
+                </tr>
+                <tr data-subject="Operating Systems">
+                  <td>Operating Systems</td>
+                  <td><input class="form-input attendance-input" type="number" min="0" value="30"></td>
+                  <td><input class="form-input attendance-input" type="number" min="0" value="6"></td>
+                  <td class="attendance-percent">83%</td>
+                  <td><button class="btn btn-outline btn-sm update-attendance-btn">Update</button></td>
+                </tr>
+                <tr data-subject="DBMS">
+                  <td>DBMS</td>
+                  <td><input class="form-input attendance-input" type="number" min="0" value="34"></td>
+                  <td><input class="form-input attendance-input" type="number" min="0" value="4"></td>
+                  <td class="attendance-percent">89%</td>
+                  <td><button class="btn btn-outline btn-sm update-attendance-btn">Update</button></td>
+                </tr>
+                <tr data-subject="Computer Networks">
+                  <td>Computer Networks</td>
+                  <td><input class="form-input attendance-input" type="number" min="0" value="28"></td>
+                  <td><input class="form-input attendance-input" type="number" min="0" value="8"></td>
+                  <td class="attendance-percent">78%</td>
+                  <td><button class="btn btn-outline btn-sm update-attendance-btn">Update</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card c2">
+            <div class="card-head"><div class="card-title"><span class="ico tint-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg></span>Prediction</div></div>
+            <p class="desc">At your current pace, Computer Networks will drop below the 75% safe line if you miss 1 more class this month.</p>
+            <div class="pill med" style="display:inline-block">Needs attention</div>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Timetable</h2><span>Tap a slot to change the subject or day</span></div>
+        <div class="grid">
+          <div class="card c6">
+            <div class="timetable-editor">
+              <div class="form-row">
+                <div class="form-field">
+                  <label>Day</label>
+                  <select class="form-select" id="timetableDaySelect">
+                    <option value="Mon">Monday</option>
+                    <option value="Tue">Tuesday</option>
+                    <option value="Wed">Wednesday</option>
+                    <option value="Thu">Thursday</option>
+                    <option value="Fri">Friday</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label>Time</label>
+                  <select class="form-select" id="timetableTimeSelect">
+                    <option value="09:00">09:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="14:30">14:30</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label>Subject</label>
+                  <input class="form-input" id="timetableSubjectInput" placeholder="New subject">
+                </div>
+              </div>
+              <div class="form-row" style="grid-template-columns: repeat(auto-fit, minmax(140px, max-content)); gap:10px">
+                <button class="btn btn-primary btn-sm" id="updateTimetableBtn">Update slot</button>
+                <button class="btn btn-outline btn-sm" id="resetTimetableBtn">Reset</button>
+              </div>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr></thead>
+              <tbody id="timetableBody">
+                <tr data-time="09:00">
+                  <td class="mono">09:00</td>
+                  <td class="timetable-cell" data-day="Mon">DS</td>
+                  <td class="timetable-cell" data-day="Tue">OS Lab</td>
+                  <td class="timetable-cell" data-day="Wed">DBMS</td>
+                  <td class="timetable-cell" data-day="Thu">DS</td>
+                  <td class="timetable-cell" data-day="Fri">CN</td>
+                </tr>
+                <tr data-time="11:00">
+                  <td class="mono">11:00</td>
+                  <td class="timetable-cell" data-day="Mon">OS</td>
+                  <td class="timetable-cell" data-day="Tue">DBMS</td>
+                  <td class="timetable-cell" data-day="Wed">CN Lab</td>
+                  <td class="timetable-cell" data-day="Thu">OS</td>
+                  <td class="timetable-cell" data-day="Fri">DBMS</td>
+                </tr>
+                <tr data-time="14:30">
+                  <td class="mono">14:30</td>
+                  <td class="timetable-cell" data-day="Mon">Elective</td>
+                  <td class="timetable-cell" data-day="Tue">—</td>
+                  <td class="timetable-cell" data-day="Wed">Study Group</td>
+                  <td class="timetable-cell" data-day="Thu">Elective</td>
+                  <td class="timetable-cell" data-day="Fri">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Exam Countdown</h2><span>Live countdown</span></div>
+        <div class="grid">
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">Data Structures — End Sem</div><div class="stat-big mono" id="cd1" style="font-size:24px">--d --h</div><span style="font-size:11.5px;color:var(--text2)">28 Jul, 10:00 AM</span></div>
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">DBMS — Mid Sem</div><div class="stat-big mono" id="cd2" style="font-size:24px">--d --h</div><span style="font-size:11.5px;color:var(--text2)">2 Aug, 9:00 AM</span></div>
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">Operating Systems — Practical</div><div class="stat-big mono" id="cd3" style="font-size:24px">--d --h</div><span style="font-size:11.5px;color:var(--text2)">5 Aug, 1:00 PM</span></div>
+        </div>
+      </section>
+
+      <!-- ============================================================ CAREER HUB ============================================================ -->
+      <section class="page" id="page-career">
+        <div class="section-heading"><h2>Career Roadmap</h2><span>Frontend Developer track</span></div>
+        <div class="grid">
+          <div class="card c6">
+            <div class="roadmap">
+              <div class="roadmap-step done"><div class="roadmap-line"></div><div class="roadmap-dot">✓</div><div class="roadmap-body"><strong>HTML</strong><span>Completed</span></div></div>
+              <div class="roadmap-step done"><div class="roadmap-line"></div><div class="roadmap-dot">✓</div><div class="roadmap-body"><strong>CSS</strong><span>Completed</span></div></div>
+              <div class="roadmap-step done"><div class="roadmap-line"></div><div class="roadmap-dot">✓</div><div class="roadmap-body"><strong>JavaScript</strong><span>Completed</span></div></div>
+              <div class="roadmap-step"><div class="roadmap-line"></div><div class="roadmap-dot">4</div><div class="roadmap-body"><strong>React</strong><span>In progress</span></div></div>
+              <div class="roadmap-step"><div class="roadmap-line"></div><div class="roadmap-dot">5</div><div class="roadmap-body"><strong>Node.js</strong><span>Locked</span></div></div>
+              <div class="roadmap-step"><div class="roadmap-line"></div><div class="roadmap-dot">6</div><div class="roadmap-body"><strong>Projects & Portfolio</strong><span>Locked</span></div></div>
+              <div class="roadmap-step"><div class="roadmap-dot">7</div><div class="roadmap-body"><strong>Internships → Job ready</strong><span>Locked</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Resume & Portfolio</h2><span>Auto-filled from your profile</span></div>
+        <div class="grid">
+          <div class="card c3 resume-card">
+            <div class="card-title" style="margin-bottom:14px">Resume Builder</div>
+            <div class="mini-card resume-preview">
+              <div class="resume-preview-top">
+                <div class="resume-avatar" id="resumeAvatar">SU</div>
+                <div>
+                  <h4 id="resumeBuilderName">Student — Frontend Developer</h4>
+                  <p>3 templates available · Last edited 2 days ago</p>
+                </div>
+              </div>
+              <div class="resume-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            </div>
+            <div class="action-state" id="resumeActionState">Ready to export</div>
+            <button class="btn btn-primary btn-sm" style="margin-top:14px" id="resumeDownloadBtn">Download PDF</button>
+          </div>
+          <div class="card c3 portfolio-card">
+            <div class="card-title" style="margin-bottom:14px">Portfolio Builder</div>
+            <div class="mini-card portfolio-preview">
+              <div class="portfolio-preview-top">
+                <div class="portfolio-badge">Live</div>
+                <div>
+                  <h4 id="portfolioBuilderName">student.edusphere.dev</h4>
+                  <p>4 projects published · Public link ready</p>
+                </div>
+              </div>
+              <div class="portfolio-mini-bar"></div>
+            </div>
+            <div class="action-state" id="portfolioActionState">Preview ready</div>
+            <button class="btn btn-outline btn-sm" style="margin-top:14px" id="portfolioViewBtn">View portfolio</button>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Skill Tracker</h2><span>14 skills logged</span></div>
+        <div class="grid">
+          <div class="card c6"><div class="chip-row skill-select"><span class="chip done">HTML ✓</span><span class="chip done">CSS ✓</span><span class="chip done">JavaScript ✓</span><span class="chip done">Python ✓</span><span class="chip done">Git ✓</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">SQL</span></div></div>
+        </div>
+
+        <div class="section-heading"><h2>Internship Hub</h2><span>Matched to your skills</span></div>
+        <div class="grid">
+          <div class="card c6">
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="t-intern">Internships</button>
+              <button class="tab-btn" data-tab="t-jobs">Remote Jobs</button>
+              <button class="tab-btn" data-tab="t-schol">Scholarships</button>
+              <button class="tab-btn" data-tab="t-hack">Hackathons</button>
+            </div>
+            <div class="tab-panel active" id="t-intern"><div class="mini-row cols-3">
+              <div class="mini-card"><span class="tag">Remote</span><h4>Frontend Intern — Nimbus Labs</h4><p>92% match · Apply by 24 Jul</p></div>
+              <div class="mini-card"><span class="tag">Hybrid</span><h4>Data Analyst Intern — Civica</h4><p>85% match · Apply by 29 Jul</p></div>
+              <div class="mini-card"><span class="tag">On-site</span><h4>ML Research Intern — Verta AI</h4><p>74% match · Apply by 2 Aug</p></div>
+            </div></div>
+            <div class="tab-panel" id="t-jobs"><div class="mini-row cols-3">
+              <div class="mini-card"><span class="tag">Full-time</span><h4>Junior Frontend Dev — Loopwave</h4><p>Remote · $$ competitive</p></div>
+              <div class="mini-card"><span class="tag">Full-time</span><h4>Support Engineer — Byteforge</h4><p>Remote · Entry level</p></div>
+            </div></div>
+            <div class="tab-panel" id="t-schol"><div class="mini-row cols-3">
+              <div class="mini-card"><span class="tag">Merit</span><h4>National Tech Scholarship</h4><p>Deadline: 15 Aug</p></div>
+              <div class="mini-card"><span class="tag">Need-based</span><h4>EduSphere Access Grant</h4><p>Deadline: 20 Aug</p></div>
+            </div></div>
+            <div class="tab-panel" id="t-hack"><div class="mini-row cols-3">
+              <div class="mini-card"><span class="tag">48 hrs</span><h4>CodeSprint 2026</h4><p>This Monday · Team of 4</p></div>
+              <div class="mini-card"><span class="tag">Online</span><h4>AI for Good Hackathon</h4><p>Starts 3 Aug</p></div>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Interview Preparation</h2><span>Practice sets</span></div>
+        <div class="grid">
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">Technical Questions</div><p class="desc">120 curated DSA & systems questions</p><button class="btn btn-outline btn-sm practice-btn" data-topic="Technical">Practice</button></div>
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">HR Questions</div><p class="desc">45 behavioural questions with sample answers</p><button class="btn btn-outline btn-sm practice-btn" data-topic="HR">Practice</button></div>
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">Coding Practice</div><p class="desc">Timed problems, auto-graded</p><button class="btn btn-outline btn-sm practice-btn" data-topic="Coding">Start set</button></div>
+        </div>
+      </section>
+
+      <!-- ============================================================ COMMUNITY HUB ============================================================ -->
+      <section class="page" id="page-community">
+        <div class="section-heading"><h2>Study Groups & Forums</h2><span>You're in 3 groups</span></div>
+        <div class="grid">
+          <div class="card c3"><div class="card-title" style="margin-bottom:12px">Your Study Groups</div><div class="list">
+            <div class="list-row"><div><strong>DBMS Finals Prep</strong><span class="meta">18 members · active now</span></div><span class="pill info">Join call</span></div>
+            <div class="list-row"><div><strong>Competitive Coding Circle</strong><span class="meta">42 members</span></div></div>
+            <div class="list-row"><div><strong>Frontend Builders</strong><span class="meta">27 members</span></div></div>
+          </div></div>
+          <div class="card c3"><div class="card-title" style="margin-bottom:12px">Discussion Forums</div><div class="list">
+            <div class="feed-item"><span class="feed-dot" style="background:var(--secondary)"></span><div><strong>How do you handle deadlocks in practice?</strong><span class="meta">14 replies · OS forum</span></div></div>
+            <div class="feed-item"><span class="feed-dot" style="background:var(--primary)"></span><div><strong>Best resources for React hooks?</strong><span class="meta">9 replies · Web Dev forum</span></div></div>
+          </div></div>
+        </div>
+
+        <div class="section-heading"><h2>Mentor Matching & Volunteering</h2><span>Give and get support</span></div>
+        <div class="grid">
+          <div class="card c3"><div class="card-title" style="margin-bottom:12px">Suggested Mentors</div><div class="mini-row"><div class="mini-card"><h4>Aditya S. — SDE @ Nimbus</h4><p>Frontend & career guidance</p></div><div class="mini-card"><h4>Priya K. — Data Scientist</h4><p>ML & analytics guidance</p></div></div></div>
+          <div class="card c3"><div class="card-title" style="margin-bottom:12px">Volunteer Programs</div><div class="list">
+            <div class="list-row"><div><strong>Teach coding to under-served schools</strong><span class="meta">Weekends · 2 hrs</span></div></div>
+            <div class="list-row"><div><strong>Campus sustainability drive</strong><span class="meta">Ongoing</span></div></div>
+          </div></div>
+        </div>
+
+        <div class="section-heading"><h2>Project Collaboration & Events</h2><span>Build together</span></div>
+        <div class="grid">
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">Open Projects</div><div class="mini-card"><h4>Campus Event App</h4><p>Needs: React dev, designer</p></div></div>
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">Lost & Found</div><div class="list"><div class="list-row"><div><strong>Blue backpack</strong><span class="meta">Found near Library</span></div></div><div class="list-row"><div><strong>Calculator (Casio)</strong><span class="meta">Lost in Lab 3</span></div></div></div></div>
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">Notes Sharing</div><div class="list"><div class="list-row"><div><strong>Thermodynamics Unit 3</strong><span class="meta">by Ankit · 3.2k views</span></div></div></div></div>
+        </div>
+      </section>
+
+      <!-- ============================================================ COMMUNITY IMPACT ============================================================ -->
+      <section class="page" id="page-impact">
+        <div class="section-heading"><h2>Report an Issue</h2><span>Help improve your neighbourhood</span></div>
+        <div class="grid">
+          <div class="card c3">
+            <div class="chip-row category-select" style="margin-bottom:16px">
+              <span class="chip active">Road damage</span><span class="chip">Garbage</span><span class="chip">Water leakage</span><span class="chip">Electric issue</span>
+            </div>
+            <div class="form-field"><label>Location</label><input class="form-input" placeholder="e.g. Near Gate 2, MG Road"></div>
+            <div class="form-field"><label>Description</label><textarea class="form-input" placeholder="Describe what you noticed..."></textarea></div>
+            <button class="btn btn-primary" id="reportBtn">Submit report</button>
+          </div>
+          <div class="card c3"><div class="card-title" style="margin-bottom:12px">Recent Reports</div><div class="list" id="recentReportsList">
+            <div class="list-row"><div><strong>Pothole — Sector 12</strong><span class="meta">Reported 2 days ago</span></div><span class="pill med">In review</span></div>
+            <div class="list-row"><div><strong>Streetlight not working</strong><span class="meta">Reported 5 days ago</span></div><span class="pill low">Resolved</span></div>
+          </div></div>
+        </div>
+
+        <div class="section-heading"><h2>Drives & Volunteering</h2><span>This month</span></div>
+        <div class="grid">
+          <div class="card c2"><div class="mini-card"><span class="tag">Environment</span><h4>Tree Plantation Drive</h4><p>Sat, 25 Jul · City Park</p></div></div>
+          <div class="card c2"><div class="mini-card"><span class="tag">Health</span><h4>Blood Donation Camp</h4><p>Wed, 22 Jul · Community Hub</p></div></div>
+          <div class="card c2"><div class="mini-card"><span class="tag">NGO</span><h4>Sahyog Foundation Meetup</h4><p>Sun, 26 Jul · Volunteers needed</p></div></div>
+        </div>
+      </section>
+
+      <!-- ============================================================ ACHIEVEMENTS ============================================================ -->
+      <section class="page" id="page-achievements">
+        <div class="section-heading"><h2>XP & Level</h2><span>Level 12 — Scholar</span></div>
+        <div class="grid">
+          <div class="card c6"><div class="stat-card"><div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700"><span>2,340 XP</span><span>3,000 XP to next level</span></div><div class="bar-track"><div class="bar-fill" data-fill="78" style="background:linear-gradient(90deg,var(--primary),var(--secondary))"></div></div></div></div>
+        </div>
+
+        <div class="section-heading"><h2>All Badges</h2><span>4 of 6 unlocked</span></div>
+        <div class="badge-strip">
+          <div class="badge"><div class="emoji">📖</div><span>Study Master</span></div>
+          <div class="badge"><div class="emoji">🔥</div><span>30-Day Streak</span></div>
+          <div class="badge"><div class="emoji">💻</div><span>Coding Expert</span></div>
+          <div class="badge locked"><div class="emoji">❤️</div><span>Volunteer Hero</span></div>
+          <div class="badge"><div class="emoji">🎯</div><span>Goal Crusher</span></div>
+          <div class="badge locked"><div class="emoji">🏆</div><span>Top Performer</span></div>
+        </div>
+
+        <div class="section-heading"><h2>Leaderboard</h2><span>Your class, this month</span></div>
+        <div class="grid">
+          <div class="card c4"><table class="data-table"><thead><tr><th>Rank</th><th>Student</th><th>XP</th></tr></thead><tbody>
+            <tr><td><span class="rank-badge gold">1</span></td><td>Aditya Sen</td><td class="mono">3,120</td></tr>
+            <tr><td><span class="rank-badge gold">2</span></td><td>Meera Iyer</td><td class="mono">2,860</td></tr>
+            <tr><td><span class="rank-badge">3</span></td><td id="leaderboardYouName">Student (You)</td><td class="mono">2,340</td></tr>
+            <tr><td><span class="rank-badge">4</span></td><td>Kabir Rao</td><td class="mono">2,110</td></tr>
+          </tbody></table></div>
+          <div class="card c2"><div class="card-title" style="margin-bottom:10px">Monthly Challenge</div><p class="desc">Solve 20 DSA problems this month</p><div class="bar-track"><div class="bar-fill" data-fill="65" style="background:var(--accent)"></div></div><span style="font-size:11.5px;color:var(--text2)">13 / 20 solved</span></div>
+        </div>
+      </section>
+
+      <!-- ============================================================ ANALYTICS ============================================================ -->
+      <section class="page" id="page-analytics">
+        <div class="section-heading"><h2>Study & Performance Trends</h2><span>Last 7 days / 6 months</span></div>
+        <div class="grid">
+          <div class="card c3"><div class="card-title" style="margin-bottom:14px">Weekly Study Hours</div>
+            <div class="bars" id="chartHours">
+              <div class="bar-col"><div class="stick" data-h="55" style="background:var(--primary)"></div><div class="lab">Mon</div></div>
+              <div class="bar-col"><div class="stick" data-h="70" style="background:var(--primary)"></div><div class="lab">Tue</div></div>
+              <div class="bar-col"><div class="stick" data-h="40" style="background:var(--primary)"></div><div class="lab">Wed</div></div>
+              <div class="bar-col"><div class="stick" data-h="85" style="background:var(--primary)"></div><div class="lab">Thu</div></div>
+              <div class="bar-col"><div class="stick" data-h="65" style="background:var(--primary)"></div><div class="lab">Fri</div></div>
+              <div class="bar-col"><div class="stick" data-h="30" style="background:var(--primary)"></div><div class="lab">Sat</div></div>
+              <div class="bar-col"><div class="stick" data-h="76" style="background:var(--primary)"></div><div class="lab">Sun</div></div>
+            </div>
+          </div>
+          <div class="card c3"><div class="card-title" style="margin-bottom:14px">GPA Trend</div>
+            <svg class="line-chart-wrap" viewBox="0 0 280 150" preserveAspectRatio="none">
+              <polyline points="10,90 60,80 110,70 160,55 210,45 270,25" fill="none" stroke="var(--secondary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <g fill="var(--secondary)"><circle cx="10" cy="90" r="3.5"/><circle cx="60" cy="80" r="3.5"/><circle cx="110" cy="70" r="3.5"/><circle cx="160" cy="55" r="3.5"/><circle cx="210" cy="45" r="3.5"/><circle cx="270" cy="25" r="3.5"/></g>
+            </svg>
+            <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--text2)"><span>Sem 1</span><span>Sem 2</span><span>Sem 3</span><span>Sem 4</span><span>Sem 5</span></div>
+          </div>
+          <div class="card c3"><div class="card-title" style="margin-bottom:14px">Skills Growth</div>
+            <div class="bars" id="chartSkills">
+              <div class="bar-col"><div class="stick" data-h="20" style="background:var(--accent)"></div><div class="lab">Jan</div></div>
+              <div class="bar-col"><div class="stick" data-h="35" style="background:var(--accent)"></div><div class="lab">Mar</div></div>
+              <div class="bar-col"><div class="stick" data-h="55" style="background:var(--accent)"></div><div class="lab">May</div></div>
+              <div class="bar-col"><div class="stick" data-h="80" style="background:var(--accent)"></div><div class="lab">Jul</div></div>
+            </div>
+          </div>
+          <div class="card c3"><div class="card-title" style="margin-bottom:14px">Attendance Trend</div>
+            <svg class="line-chart-wrap" viewBox="0 0 280 150" preserveAspectRatio="none">
+              <polyline points="10,50 70,40 140,60 210,35 270,30" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <g fill="var(--success)"><circle cx="10" cy="50" r="3.5"/><circle cx="70" cy="40" r="3.5"/><circle cx="140" cy="60" r="3.5"/><circle cx="210" cy="35" r="3.5"/><circle cx="270" cy="30" r="3.5"/></g>
+            </svg>
+            <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--text2)"><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span></div>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Overall Snapshot</h2><span></span></div>
+        <div class="grid">
+          <div class="card c2"><div class="stat-card"><div class="stat-big" style="font-size:26px">42</div><span style="font-size:11.5px;color:var(--text2)">Community hours logged</span></div></div>
+          <div class="card c2"><div class="stat-card"><div class="stat-big" style="font-size:26px">86</div><span style="font-size:11.5px;color:var(--text2)">Career readiness score</span></div></div>
+          <div class="card c2"><div class="stat-card"><div class="stat-big" style="font-size:26px">6</div><span style="font-size:11.5px;color:var(--text2)">Certificates earned</span></div></div>
+        </div>
+      </section>
+
+      <!-- ============================================================ AI ASSISTANT ============================================================ -->
+      <section class="page" id="page-assistant">
+        <div class="section-heading"><h2>Ask your AI Assistant</h2><span>Study plans, summaries, quizzes & more</span></div>
+        <div class="grid">
+          <div class="card c6">
+            <div class="chat-box" id="chatBox">
+              <div class="msg bot" id="assistantGreeting">Hi there 👋 I can build you a study plan, summarize notes, generate a quiz, or suggest internships. What do you need?</div>
+            </div>
+            <div class="chip-row" style="margin-bottom:14px">
+              <button class="chip-prompt" data-prompt="Create a study plan for my DBMS exam">Create a study plan</button>
+              <button class="chip-prompt" data-prompt="Summarize my Thermodynamics notes">Summarize notes</button>
+              <button class="chip-prompt" data-prompt="Generate a quiz on Operating Systems">Generate a quiz</button>
+              <button class="chip-prompt" data-prompt="Suggest internships that match my skills">Suggest internships</button>
+            </div>
+            <div class="chat-input-row">
+              <input class="form-input" id="chatInput" style="flex:1" placeholder="Ask anything about your studies or career...">
+              <button class="btn btn-primary" id="chatSend">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ EMERGENCY & SAFETY (own page, not on dashboard) ============================================================ -->
+      <section class="page" id="page-emergency">
+        <div class="sos-card fade-in">
+          <div><div style="font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.85;font-weight:700">Emergency & Safety</div><div class="display" style="font-size:24px;font-weight:600;margin-top:6px">Help is one tap away.</div><div style="font-size:13px;opacity:.9;margin-top:6px;max-width:360px">Tap SOS to alert your emergency contacts and share your live location instantly.</div></div>
+          <div class="sos-btn" id="sosBtn" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        </div>
+
+        <div class="section-heading"><h2>Nearby Hospitals</h2><span>Within 3 km</span></div>
+        <div class="grid">
+          <div class="card c2"><div class="mini-card"><h4>City Care Hospital</h4><p>1.2 km · 24×7 emergency</p></div></div>
+          <div class="card c2"><div class="mini-card"><h4>Sunrise Multispeciality</h4><p>2.4 km · Ambulance available</p></div></div>
+          <div class="card c2"><div class="mini-card"><h4>Campus Health Centre</h4><p>0.4 km · First-aid & referrals</p></div></div>
+        </div>
+
+        <div class="section-heading"><h2>Blood Donor Directory</h2><span>Search by group & city</span></div>
+        <div class="grid">
+          <div class="card c6">
+            <div class="form-row" style="margin-bottom:16px">
+              <select class="form-select"><option>Blood Group — Any</option><option>O+</option><option>O-</option><option>A+</option><option>B+</option><option>AB+</option></select>
+              <input class="form-input" placeholder="City / Area">
+              <button class="btn btn-primary">Search donors</button>
+            </div>
+            <table class="data-table"><thead><tr><th>Name</th><th>Group</th><th>City</th><th>Availability</th></tr></thead><tbody>
+              <tr><td>Karan Mehta</td><td>O+</td><td>Sector 14</td><td class="pill low" style="display:inline-block;margin:0">Available</td></tr>
+              <tr><td>Fatima Sheikh</td><td>A+</td><td>MG Road</td><td class="pill low" style="display:inline-block;margin:0">Available</td></tr>
+              <tr><td>Rohan Das</td><td>B+</td><td>Model Town</td><td class="pill med" style="display:inline-block;margin:0">On call</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+
+        <div class="section-heading"><h2>Emergency Contacts</h2><span>Reachable in one tap</span></div>
+        <div class="grid">
+          <div class="card c2"><div class="list-row contact-row" style="cursor:pointer"><div><strong>Mom</strong><span class="meta">+91 98xxxxxx01</span></div></div></div>
+          <div class="card c2"><div class="list-row contact-row" style="cursor:pointer"><div><strong>Dad</strong><span class="meta">+91 98xxxxxx02</span></div></div></div>
+          <div class="card c2"><div class="list-row contact-row" style="cursor:pointer"><div><strong>Campus Security</strong><span class="meta">+91 11xxxxxx00</span></div></div></div>
+        </div>
+
+        <div class="section-heading"><h2>Safety Tips</h2><span>Tap to expand</span></div>
+        <div class="grid">
+          <div class="card c6" id="safetyAccordion">
+            <div class="accordion-item"><div class="accordion-head">Medical Emergencies <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div><div class="accordion-body">Call for help immediately, keep the person still, and note the time symptoms started for responders.</div></div>
+            <div class="accordion-item"><div class="accordion-head">Fire Safety <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div><div class="accordion-body">Stay low under smoke, use stairs not lifts, and close doors behind you to slow the spread.</div></div>
+            <div class="accordion-item"><div class="accordion-head">Cyber Security <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div><div class="accordion-body">Never share OTPs, use unique passwords, and verify links before clicking.</div></div>
+            <div class="accordion-item"><div class="accordion-head">Mental Health Support <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div><div class="accordion-body">You don't have to manage everything alone — reach out to a counsellor or trusted person early.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ PROFILE ============================================================ -->
+      <section class="page" id="page-profile">
+        <div class="card fade-in" style="margin-bottom:26px">
+          <div class="profile-head">
+            <div class="profile-photo">RA</div>
+            <div><div class="profile-name" id="profileName">Student</div><div class="profile-meta" id="profileMeta">B.Tech Computer Science · Semester 5 · GPA 8.7</div></div>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="card c3"><div class="card-title" style="margin-bottom:12px">Skills & Certificates</div><div class="chip-row skill-select"><span class="chip done">HTML ✓</span><span class="chip done">CSS ✓</span><span class="chip done">JavaScript ✓</span><span class="chip done">Python ✓</span><span class="chip done">Git ✓</span></div></div>
+          <div class="card c3"><div class="card-title" style="margin-bottom:12px">Projects</div><div class="list"><div class="list-row"><div><strong>Campus Event App</strong><span class="meta">React · in progress</span></div></div><div class="list-row"><div><strong>Portfolio Website</strong><span class="meta">Published</span></div></div></div></div>
+          <div class="card c2"><div class="stat-card"><div class="stat-big" style="font-size:26px">42</div><span style="font-size:11.5px;color:var(--text2)">Volunteer hours</span></div></div>
+          <div class="card c2"><div class="stat-card"><div class="stat-big" style="font-size:26px">168</div><span style="font-size:11.5px;color:var(--text2)">Study hours (month)</span></div></div>
+          <div class="card c2"><div class="stat-card"><div class="stat-big" style="font-size:26px">6</div><span style="font-size:11.5px;color:var(--text2)">Achievements earned</span></div></div>
+        </div>
+      </section>
+
+      <!-- ============================================================ SETTINGS ============================================================ -->
+      <section class="page" id="page-settings">
+        <div class="grid">
+          <div class="card c4">
+            <div class="switch-row"><div><strong>Dark mode</strong><span class="hint">Match the toggle in the top bar</span></div><div class="switch" id="settingsThemeSwitch"></div></div>
+            <div class="switch-row"><div><strong>Push notifications</strong><span class="hint">Deadlines, messages & reminders</span></div><div class="switch on toggle-demo"></div></div>
+            <div class="switch-row"><div><strong>Email digest</strong><span class="hint">Weekly summary of your progress</span></div><div class="switch toggle-demo"></div></div>
+            <div class="switch-row"><div><strong>Share progress with mentors</strong><span class="hint">Privacy setting</span></div><div class="switch on toggle-demo"></div></div>
+          </div>
+          <div class="card c2">
+            <div class="form-field"><label>Language</label><select class="form-select"><option>English</option><option>Hindi</option><option>Spanish</option></select></div>
+            <div class="form-field"><label>Backup</label><button class="btn btn-outline btn-sm" id="backupBtn">Backup my data now</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ AUTH ============================================================ -->
+      <section class="page" id="page-auth">
+        <div class="auth-wrap">
+          <div class="auth-card">
+            <div class="tabs"><button class="tab-btn active" data-tab="t-login">Log in</button><button class="tab-btn" data-tab="t-signup">Sign up</button></div>
+            <div class="tab-panel active" id="t-login">
+              <div class="form-field"><label>Email</label><input class="form-input" id="loginEmailInput" placeholder="you@college.edu"></div>
+              <div class="form-field"><label>Password</label><input class="form-input" id="loginPasswordInput" type="password" placeholder="••••••••"></div>
+              <div style="display:flex;justify-content:flex-end;margin-bottom:14px"><a href="#" style="font-size:11.5px;color:var(--primary);font-weight:600">Forgot password?</a></div>
+              <button class="btn btn-primary" style="width:100%" id="loginBtn">Log in</button>
+              <div class="auth-divider">or</div>
+              <button class="btn-google"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.15-4.53H2.18v2.85A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.85 14.1a6.6 6.6 0 0 1 0-4.2V7.05H2.18a11 11 0 0 0 0 9.9z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.05l3.67 2.85C6.71 7.3 9.14 5.38 12 5.38z"/></svg> Continue with Google</button>
+            </div>
+            <div class="tab-panel" id="t-signup">
+              <div class="form-field"><label>Full name</label><input class="form-input" id="signupNameInput" placeholder="Your name"></div>
+              <div class="form-field"><label>Email</label><input class="form-input" id="signupEmailInput" placeholder="you@college.edu"></div>
+              <div class="form-field"><label>Password</label><input class="form-input" id="signupPasswordInput" type="password" placeholder="Create a password"></div>
+              <button class="btn btn-primary" style="width:100%" id="signupBtn">Create account</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
